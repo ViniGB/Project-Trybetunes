@@ -1,0 +1,7 @@
+.loading-render {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 350px;
+}
