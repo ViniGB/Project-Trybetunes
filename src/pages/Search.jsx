@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Header from '../components/Header';
 import './Search.css';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Loading from './Loading';
 
 class Search extends React.Component {
   constructor() {
@@ -9,11 +11,15 @@ class Search extends React.Component {
 
     this.state = {
       searchClass: '',
-      name: '',
+      artistName: '',
       entryButton: false,
+      loading: undefined,
+      allAlbuns: [],
     };
 
     this.handleInput = this.handleInput.bind(this);
+    this.handleEntryButton = this.handleEntryButton.bind(this);
+    this.fetchAlbums = this.fetchAlbums.bind(this);
   }
 
   componentDidMount() {
@@ -33,20 +39,37 @@ class Search extends React.Component {
   }
 
   handleEntryButton() {
-    const { name } = this.state;
+    const { artistName } = this.state;
 
     let disabledEntryButton = false;
     const enableButtonCondition = 2;
 
-    if (name.length >= enableButtonCondition) disabledEntryButton = true;
+    if (artistName.length >= enableButtonCondition) disabledEntryButton = true;
 
     this.setState({
       entryButton: disabledEntryButton,
     });
   }
 
+  async fetchAlbums() {
+    const { artistName } = this.state;
+
+    this.setState(
+      { loading: true },
+      async () => {
+        const requestAlbum = await searchAlbumsAPI(artistName);
+        if (requestAlbum) {
+          this.setState({
+            loading: false,
+            allAlbuns: requestAlbum,
+          });
+        }
+      },
+    );
+  }
+
   render() {
-    const { searchClass, entryButton } = this.state;
+    const { searchClass, entryButton, loading, allAlbuns, artistName } = this.state;
 
     return (
       <div data-testid="page-search">
@@ -58,7 +81,8 @@ class Search extends React.Component {
               type="text"
               data-testid="search-artist-input"
               placeholder="Nome do Artista"
-              name="name"
+              name="artistName"
+              value={ artistName }
               className="artist-name-input"
               onChange={ this.handleInput }
             />
@@ -67,13 +91,32 @@ class Search extends React.Component {
               type="button"
               className="search-artist-button-input"
               data-testid="search-artist-button"
-              onClick={ this.handleClick }
+              onClick={ this.fetchAlbums }
               disabled={ !entryButton }
             >
               Search
             </button>
           </form>
         </div>
+
+        { loading
+          ? <Loading />
+          : (
+            <div>
+              <p>
+                { loading
+                  ? `Resultado de álbuns de ${allAlbuns.artistName}`
+                  : '' }
+              </p>
+              { allAlbuns.map((album) => (
+                <div key={ album.collectionId }>
+                  <img
+                    src={ album.artworkUrl100 }
+                    alt={ album.collectionName }
+                  />
+                </div>
+              )) }
+            </div>)}
       </div>
     );
   }

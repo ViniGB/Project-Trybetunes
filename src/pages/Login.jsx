@@ -42,7 +42,7 @@ class Login extends React.Component {
     });
   }
 
-  async handleClick() {
+  handleClick() {
     const { name } = this.state;
 
     this.setState(
