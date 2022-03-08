@@ -25,3 +25,67 @@
   flex-grow: 1;
   justify-content: center;
 }
+
+.nav-links-section {
+  display: flex;
+}
+
+.nav-links {
+  background-color: rgb(247, 247, 247);
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: 0 4px 2px -2px rgb(204, 204, 204);
+  color: rgb(47, 193, 139);
+  display: flex;
+  flex-grow: 1;
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-size: 28px;
+  font-weight: 900;
+  justify-content: center;
+  padding: 20px;
+  text-decoration: unset;
+}
+
+.nav-links-search {
+  background-color: rgb(3, 107, 82);
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: 0 4px 2px -2px rgb(204, 204, 204);
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-size: 28px;
+  font-weight: 900;
+  justify-content: center;
+  padding: 20px;
+  text-decoration: unset;
+}
+
+.nav-links-favorites {
+  background-color: rgb(3, 107, 82);
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: 0 4px 2px -2px rgb(204, 204, 204);
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-size: 28px;
+  font-weight: 900;
+  justify-content: center;
+  padding: 20px;
+  text-decoration: unset;
+}
+
+.nav-links-profile {
+  background-color: rgb(3, 107, 82);
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: 0 4px 2px -2px rgb(204, 204, 204);
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-size: 28px;
+  font-weight: 900;
+  justify-content: center;
+  padding: 20px;
+  text-decoration: unset;
+}
