@@ -1,0 +1,40 @@
+.search-artist-form-section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.artist-name-input {
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+  border: 1px solid rgb(234, 234, 236);
+  border-radius: 6px;
+  margin-right: 20px;
+  padding: 12px 16px;
+  padding-left: 40px;
+  width: 350px;
+}
+
+.search-artist-button-input[ disabled ] {
+  background-color: rgb(126, 126, 250);
+  color: white;
+  height: 35px;
+  width: 100px;
+}
+
+.search-artist-button-input {
+  background-color: rgb(53, 53, 212);
+  color: white;
+  height: 35px;
+  transition: 1s;
+  width: 100px;
+}
+
+.search-artist-button-input:hover {
+  background-color: rgb(53, 53, 212);
+  border-radius: 6px;
+  color: rgb(223, 223, 223);
+  font-weight: 900;
+  height: 40px;
+  width: 110px;
+}
