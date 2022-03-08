@@ -38,3 +38,45 @@
   height: 40px;
   width: 110px;
 }
+
+.albums-main-section {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 70px 50px;
+}
+
+.artistname-result {
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-size: 25px;
+  padding-left: 80px;
+}
+
+.albums-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.all-albums {
+  border: 1px solid rgb(224, 228, 235);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) , 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  max-width: 250px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.album-collectionName {
+  color: rgb(61, 73, 92);
+  font-family: Georgia , Times New Roman , Times , serif;
+  margin-left: 15px;
+}
+
+.album-artistName {
+  color: rgb(61, 73, 92);
+  font-family: Georgia , Times New Roman , Times , serif;
+  margin-bottom: 60px;
+  margin-left: 15px;
+}

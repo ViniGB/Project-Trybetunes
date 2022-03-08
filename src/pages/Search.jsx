@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import './Search.css';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -11,10 +12,12 @@ class Search extends React.Component {
 
     this.state = {
       searchClass: '',
-      artistName: '',
+      name: '',
       entryButton: false,
       loading: undefined,
       allAlbuns: [],
+      loaded: false,
+      value: '',
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -39,29 +42,40 @@ class Search extends React.Component {
   }
 
   handleEntryButton() {
-    const { artistName } = this.state;
+    const { name } = this.state;
 
     let disabledEntryButton = false;
     const enableButtonCondition = 2;
 
-    if (artistName.length >= enableButtonCondition) disabledEntryButton = true;
+    if (name.length >= enableButtonCondition) disabledEntryButton = true;
 
     this.setState({
       entryButton: disabledEntryButton,
     });
   }
 
-  async fetchAlbums() {
-    const { artistName } = this.state;
+  fetchAlbums() {
+    const { name } = this.state;
 
     this.setState(
       { loading: true },
       async () => {
-        const requestAlbum = await searchAlbumsAPI(artistName);
-        if (requestAlbum) {
+        const requestAlbum = await searchAlbumsAPI(name);
+        if (requestAlbum === []) {
+          this.setState({
+            loading: false,
+            allAlbuns: [],
+            loaded: true,
+            name: '',
+            value: name,
+          });
+        } else {
           this.setState({
             loading: false,
             allAlbuns: requestAlbum,
+            loaded: true,
+            name: '',
+            value: name,
           });
         }
       },
@@ -69,7 +83,14 @@ class Search extends React.Component {
   }
 
   render() {
-    const { searchClass, entryButton, loading, allAlbuns, artistName } = this.state;
+    const {
+      searchClass,
+      entryButton,
+      loading,
+      allAlbuns,
+      name,
+      loaded,
+      value } = this.state;
 
     return (
       <div data-testid="page-search">
@@ -81,8 +102,8 @@ class Search extends React.Component {
               type="text"
               data-testid="search-artist-input"
               placeholder="Nome do Artista"
-              name="artistName"
-              value={ artistName }
+              name="name"
+              value={ name }
               className="artist-name-input"
               onChange={ this.handleInput }
             />
@@ -99,23 +120,45 @@ class Search extends React.Component {
           </form>
         </div>
 
+        {/* Had help from Gabriel Pondaco - Turma 19 - Tribo B, to figure ternary concat */}
         { loading
           ? <Loading />
           : (
-            <div>
-              <p>
-                { loading
-                  ? `Resultado de álbuns de ${allAlbuns.artistName}`
-                  : '' }
+            <div className="albums-main-section">
+              <p className="artistname-result">
+                { loaded && allAlbuns.length <= 0
+                  ? 'Nenhum álbum foi encontrado'
+                  : (
+                    <div>
+                      <p>
+                        { !loaded
+                          ? ''
+                          : `Resultado de álbuns de: ${value}`}
+                      </p>
+                      <div className="albums-section">
+                        { allAlbuns.map((album) => (
+                          <Link
+                            to={ `/album/${album.collectionId}` }
+                            key={ album.collectionId }
+                            className="all-albums"
+                            data-testid={ `link-to-album-${album.collectionId}` }
+                          >
+                            <img
+                              src={ album.artworkUrl100 }
+                              alt={ album.collectionName }
+                              width="250px"
+                              height="150px"
+                            />
+                            <h3 className="album-collectionName">
+                              { album.collectionName }
+                            </h3>
+                            <p className="album-artistName">{ album.artistName }</p>
+                          </Link>
+                        )) }
+                      </div>
+                    </div>
+                  ) }
               </p>
-              { allAlbuns.map((album) => (
-                <div key={ album.collectionId }>
-                  <img
-                    src={ album.artworkUrl100 }
-                    alt={ album.collectionName }
-                  />
-                </div>
-              )) }
             </div>)}
       </div>
     );
