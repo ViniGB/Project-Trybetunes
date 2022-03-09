@@ -5,6 +5,7 @@ import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
 import './Album.css';
 import MusicCard from './MusicCard';
+import { addSong } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -15,7 +16,11 @@ class Album extends React.Component {
       img: '',
       artist: '',
       albumName: '',
+      favoriteAlbum: [],
+      loading: undefined,
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -29,8 +34,36 @@ class Album extends React.Component {
     }));
   }
 
+  handleInputChange(event) {
+    const { album, favoriteAlbum } = this.state;
+    const isFavoriteChecked = event.target.checked;
+    let getAlbumId;
+
+    if (isFavoriteChecked) {
+      getAlbumId = event.target.id;
+      const filteredAlbum = album
+        .filter((albumId) => albumId.trackId === Number(getAlbumId));
+      const reducedFilteredAlbum = filteredAlbum[0];
+
+      getAlbumId = reducedFilteredAlbum;
+      this.setState({
+        favoriteAlbum: [...favoriteAlbum, reducedFilteredAlbum],
+      });
+    }
+
+    this.setState(
+      { loading: true },
+      async () => {
+        await addSong(getAlbumId);
+        this.setState({
+          loading: false,
+        });
+      },
+    );
+  }
+
   render() {
-    const { album, img, artist, albumName } = this.state;
+    const { album, img, artist, albumName, loading, favoriteAlbum } = this.state;
 
     return (
       <div>
@@ -38,7 +71,7 @@ class Album extends React.Component {
           <Header />
         </div>
 
-        { !album
+        { loading
           ? <Loading />
           : (
             <div className="main-album-component">
@@ -65,7 +98,20 @@ class Album extends React.Component {
               </div>
 
               <div>
-                <MusicCard album={ album } />
+                {album.map(({ trackId, previewUrl, trackName }) => (
+                  !trackId
+                    ? ''
+                    : (
+                      <MusicCard
+                        key={ trackId }
+                        trackId={ trackId }
+                        previewUrl={ previewUrl }
+                        trackName={ trackName }
+                        handleInputChange={ this.handleInputChange }
+                        // Got help from Débora Serra - Turma 19 - Tribo B, to figure how to set props to checked
+                        favoriteCheck={ favoriteAlbum
+                          .some((checkAlbum) => checkAlbum.trackId === trackId) }
+                      />)))}
               </div>
             </div>)}
       </div>

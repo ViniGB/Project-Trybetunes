@@ -125,16 +125,16 @@ class Search extends React.Component {
           ? <Loading />
           : (
             <div className="albums-main-section">
-              <p className="artistname-result">
+              <div className="artistname-result">
                 { loaded && allAlbuns.length <= 0
                   ? 'Nenhum álbum foi encontrado'
                   : (
                     <div>
-                      <p>
+                      <div>
                         { !loaded
                           ? ''
                           : `Resultado de álbuns de: ${value}`}
-                      </p>
+                      </div>
                       <div className="albums-section">
                         { allAlbuns.map((album) => (
                           <Link
@@ -158,7 +158,7 @@ class Search extends React.Component {
                       </div>
                     </div>
                   ) }
-              </p>
+              </div>
             </div>)}
       </div>
     );
