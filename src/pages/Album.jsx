@@ -5,7 +5,7 @@ import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
 import './Album.css';
 import MusicCard from './MusicCard';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -26,11 +26,17 @@ class Album extends React.Component {
   componentDidMount() {
     const { match: { params: { id } } } = this.props;
 
+    // Req 7
     getMusics(id).then((album) => this.setState({
       album,
       img: album[0].artworkUrl100,
       artist: album[0].artistName,
       albumName: album[0].collectionName,
+    }));
+
+    // Req 9
+    getFavoriteSongs().then((favoriteAlbum) => this.setState({
+      favoriteAlbum,
     }));
   }
 
