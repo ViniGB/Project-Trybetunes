@@ -5,7 +5,7 @@ import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
 import './Album.css';
 import MusicCard from './MusicCard';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -54,18 +54,33 @@ class Album extends React.Component {
       getAlbumId = reducedFilteredAlbum;
       this.setState({
         favoriteAlbum: [...favoriteAlbum, reducedFilteredAlbum],
-      });
-    }
-
-    this.setState(
-      { loading: true },
+        loading: true,
+      },
       async () => {
         await addSong(getAlbumId);
         this.setState({
           loading: false,
         });
+      });
+    } else { // Req 11
+      getAlbumId = event.target.id;
+      const filteredAlbum = album
+        .filter((albumId) => albumId.trackId === Number(getAlbumId));
+      const reducedFilteredAlbum = filteredAlbum[0];
+
+      getAlbumId = reducedFilteredAlbum;
+      this.setState({
+        favoriteAlbum: favoriteAlbum
+          .filter((favAlbum) => favAlbum.trackId !== reducedFilteredAlbum.trackId),
+        loading: true,
       },
-    );
+      async () => {
+        await removeSong(getAlbumId);
+        this.setState({
+          loading: false,
+        });
+      });
+    }
   }
 
   render() {
