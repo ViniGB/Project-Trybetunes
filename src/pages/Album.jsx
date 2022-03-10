@@ -45,13 +45,14 @@ class Album extends React.Component {
     const isFavoriteChecked = event.target.checked;
     let getAlbumId;
 
-    if (isFavoriteChecked) {
-      getAlbumId = event.target.id;
-      const filteredAlbum = album
-        .filter((albumId) => albumId.trackId === Number(getAlbumId));
-      const reducedFilteredAlbum = filteredAlbum[0];
+    getAlbumId = event.target.id;
+    const filteredAlbum = album
+      .filter((albumId) => albumId.trackId === Number(getAlbumId));
 
-      getAlbumId = reducedFilteredAlbum;
+    const reducedFilteredAlbum = filteredAlbum[0];
+    getAlbumId = reducedFilteredAlbum;
+
+    if (isFavoriteChecked) {
       this.setState({
         favoriteAlbum: [...favoriteAlbum, reducedFilteredAlbum],
         loading: true,
@@ -63,12 +64,6 @@ class Album extends React.Component {
         });
       });
     } else { // Req 11
-      getAlbumId = event.target.id;
-      const filteredAlbum = album
-        .filter((albumId) => albumId.trackId === Number(getAlbumId));
-      const reducedFilteredAlbum = filteredAlbum[0];
-
-      getAlbumId = reducedFilteredAlbum;
       this.setState({
         favoriteAlbum: favoriteAlbum
           .filter((favAlbum) => favAlbum.trackId !== reducedFilteredAlbum.trackId),
