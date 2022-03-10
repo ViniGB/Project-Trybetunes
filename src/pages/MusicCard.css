@@ -4,6 +4,7 @@
   border-left: 1px solid white;
   border-right: 1px solid white;
   display: flex;
+  justify-content: center;
   padding: 10px;
 }
 
