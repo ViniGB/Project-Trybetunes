@@ -1,0 +1,62 @@
+.main-profile-section {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  width: 288px;
+}
+
+.profile-avatar-edit-section {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 288px;
+}
+
+.profile-image {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+.profile-edit-section {
+  border: 1px solid rgb(0, 59, 229);
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 7px 16px;
+}
+
+.profile-edit-section:hover {
+  background-color: black;
+  transition: 1s;
+}
+
+.profile-link {
+  color: rgb(0, 59, 229);
+  font-family: Georgia , Times New Roman , Times , serif;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.profile-link:hover {
+  color: rgb(6, 177, 180);
+  transition: 1s;
+}
+
+.profile-user-section {
+  color: rgb(109, 109, 109);
+}
+
+.profile-email-section {
+  color: rgb(109, 109, 109);
+  margin-bottom: 30px;
+}
+
+.profile-description-section {
+  color: rgb(109, 109, 109);
+  max-width: 288px;
+}

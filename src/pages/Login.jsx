@@ -11,6 +11,9 @@ class Login extends React.Component {
 
     this.state = {
       name: '',
+      email: '',
+      description: '',
+      image: '',
       entryButton: false,
       loading: undefined,
       redirect: false,
@@ -43,12 +46,17 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { name } = this.state;
+    const { name, email, description, image } = this.state;
 
     this.setState(
       { loading: true },
       async () => {
-        const requestUser = await createUser({ name });
+        const requestUser = await createUser({
+          name,
+          email,
+          description,
+          image,
+        });
         if (requestUser) {
           this.setState({
             loading: false,
@@ -85,8 +93,32 @@ class Login extends React.Component {
             data-testid="login-name-input"
             placeholder="Nome"
             name="name"
-            className="form-name-input"
+            className="form-input"
             onChange={ this.handleInput }
+          />
+          <br />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            className="form-input"
+            onChange={ this.handleInput }
+          />
+          <br />
+          <textarea
+            placeholder="Descrição"
+            name="description"
+            className="form-input"
+            onChange={ this.handleInput }
+            rows="5"
+          />
+          <br />
+          <input
+            placeholder="User Avatar Url"
+            name="image"
+            className="form-input"
+            onChange={ this.handleInput }
+            rows="5"
           />
           <br />
           <button
