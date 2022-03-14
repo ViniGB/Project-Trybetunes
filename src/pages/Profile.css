@@ -4,7 +4,6 @@
   flex-direction: column;
   justify-content: center;
   margin: auto;
-  margin-bottom: 100px;
   margin-top: 100px;
   width: 288px;
 }
@@ -58,5 +57,6 @@
 
 .profile-description-section {
   color: rgb(109, 109, 109);
+  margin-bottom: 30px;
   max-width: 288px;
 }

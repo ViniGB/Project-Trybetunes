@@ -43,9 +43,17 @@ class Header extends React.Component {
       ? 'nav-links-favorites'
       : 'nav-links';
 
-    const profileLinkClass = profileClass === '/profile'
-      ? 'nav-links-profile'
-      : 'nav-links';
+    let profileLinkClass;
+
+    if (profileClass === '/profile' || profileClass === '/profile/edit') {
+      profileLinkClass = 'nav-links-profile';
+    } else {
+      profileLinkClass = 'nav-links';
+    }
+
+    // const profileLinkClass = profileClass === '/profile'
+    //   ? 'nav-links-profile'
+    //   : 'nav-links';
 
     const iconStyle = {
       color: 'rgb(47, 193, 139)',
