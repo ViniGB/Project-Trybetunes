@@ -1,5 +1,9 @@
 # Project Trybetunes
 
+
+https://user-images.githubusercontent.com/92736867/186284131-ed3cfd0f-119e-411c-a5a6-1e85e2c5fb76.mp4
+
+
 - Project to develop an application capable of playing songs from the most varied bands and artists, creating a list of favorite songs and editing the profile of the user logged in. 
 
 ## Requirements
